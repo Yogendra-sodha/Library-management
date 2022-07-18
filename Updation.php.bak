@@ -1,0 +1,41 @@
+<?php  
+echo
+$size=sizeof($_POST);
+$records=$size/4;
+ 
+for($i=1;$i<=$records;$i++)
+	
+{  echo
+   $index1="bid".$i;
+   echo
+   $bid[$i]=$_POST[$index1];
+   echo  
+   $index2="bname".$i;
+   echo
+   $bname[$i]=$_POST[$index2];
+   echo
+   $index3="PRICE".$i;
+   echo
+   $PRICE[$i]=$_POST[$index3];
+   echo
+   $index4="author".$i;
+   echo
+   $auhtor[$i]=$_POST[$index4];
+   }
+   
+$con=mysqli_connect('localhost','root');
+mysqli_select_db($con,'bm');
+for ($i=1;$i<=$records;$i++)
+{
+  $q="update book SET bname='$bname[$i]',PRICE=$PRICE[$i],author='$author[$i]',where bid=$bid[$i]";
+    mysqli_query($con,$q);
+}
+mysqli_close($con);
+?>
+<html>
+<head>Update Form</head>
+<body>
+<p> <?php echo$records." rows updated succesfully"; ?> </p>
+Do you want update again then <a href="http://localhost/app/BRM/update.php"> Click here</a>
+</body>
+</html>
